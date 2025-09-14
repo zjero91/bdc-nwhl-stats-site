@@ -1,1 +1,1 @@
-web: gunicorn nwhlstatsproject.wsgi:application
+web: cd nwhlstatsproject && gunicorn nwhlstatsproject.wsgi:application
