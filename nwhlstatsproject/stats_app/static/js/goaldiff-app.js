@@ -13,7 +13,7 @@ const ShotPlot = {
     methods: {
         loadImageAndRender() {
             const img = new Image();
-            img.src = 'stats_app/static/images/iihf-rink-half.png';
+            img.src = '/static/images/iihf-rink-half.png';
             img.onload = () => {
                 this.rinkImage = img;
                 this.renderChart();
@@ -122,7 +122,7 @@ const appInstance = () => {
                 plotUpOne: [],
                 plotUpTwo: [],
                 currTeamId: 1,
-                currTeamLogo: 'stats_app/static/images/pride_logo.png',
+                currTeamLogo: '/static/images/pride_logo.png',
             }
         },
         mounted() {
@@ -311,17 +311,17 @@ const appInstance = () => {
             getTeamLogo() {
                 this.loading = true;
                 if (this.currTeamId == 1) {
-                    this.currTeamLogo = 'stats_app/static/images/pride_logo.png';
+                    this.currTeamLogo = '/static/images/pride_logo.png';
                 } else if (this.currTeamId == 2) {
-                    this.currTeamLogo = 'stats_app/static/images/beauts_logo.png';
+                    this.currTeamLogo = '/static/images/beauts_logo.png';
                 } else if (this.currTeamId == 3) {
-                    this.currTeamLogo = 'stats_app/static/images/whale_logo.png';
+                    this.currTeamLogo = '/static/images/whale_logo.png';
                 } else if (this.currTeamId == 4) {
-                    this.currTeamLogo = 'stats_app/static/images/riveters_logo.png';
+                    this.currTeamLogo = '/static/images/riveters_logo.png';
                 } else if (this.currTeamId == 5) {
-                    this.currTeamLogo = 'stats_app/static/images/whitecaps_logo.png';
+                    this.currTeamLogo = '/static/images/whitecaps_logo.png';
                 } else {
-                    this.currTeamLogo = 'stats_app/static/images/six_logo.png';
+                    this.currTeamLogo = '/static/images/six_logo.png';
                 }
                 this.loading = false;
             },
