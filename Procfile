@@ -1,1 +1,1 @@
-web: gunicorn bdc-nwhl-stats-site.nwhlstatsproject.wsgi
+web: gunicorn nwhlstatsproject.wsgi:application
