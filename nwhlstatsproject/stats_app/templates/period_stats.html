@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NWHL Stats Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+        <img src="{% static 'images/NWHL_2015_logo.png' %}" alt="Logo" width="50px" height="30px" class="d-inline-block align-text-top" style="-webkit-filter: invert(1); filter: invert(1)">
+        Team Situations Tool
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mx-auto" style="font-size: 20px;">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Period</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/goaldiff">Goal Diff</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </nav>
+
+    <div id="sit-tool" class="container px-0 py-5" v-if="!loading">
+        <div class="text-center">
+            <img @click="currTeamId=2" src="{% static 'images/beauts_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=1" src="{% static 'images/pride_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=4" src="{% static 'images/riveters_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=6" src="{% static 'images/six_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=3" src="{% static 'images/whale_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=5" src="{% static 'images/whitecaps_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+        </div>
+
+        <hr>
+        
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-inline-block">
+                <img id="selected-logo" :src="currTeamLogo" alt="Logo" height="70">
+                <span class="h1 align-bottom px-4">[[ teamDataOne?.team_name || '' ]]</span>
+            </div>
+            <h1 class="mb-0 align-bottom">5v5 Team Stats by Period</h1>
+        </div>
+
+        <br><br>
+
+        <div class="row row-cols-lg-3 pt-1">
+            <div class="col" id="stats-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col">Period:</th>
+                            <th scope="col">1</th>
+                            <th scope="col">2</th>
+                            <th scope="col">3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Goals</th>
+                            <td>[[ teamDataOne?.goals || '' ]]</td>
+                            <td>[[ teamDataTwo?.goals || '' ]]</td>
+                            <td>[[ teamDataThree?.goals || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">xG</th>
+                            <td>[[ teamDataOne?.xg || '' ]]</td>
+                            <td>[[ teamDataTwo?.xg || '' ]]</td>
+                            <td>[[ teamDataThree?.xg || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Shot Attempts/GP</th>
+                            <td>[[ teamDataOne?.sat || '' ]]</td>
+                            <td>[[ teamDataTwo?.sat || '' ]]</td>
+                            <td>[[ teamDataThree?.sat || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Pass Success %</th>
+                            <td>[[ (teamDataOne?.pass_pct * 100).toFixed(0) + '%' || '' ]]</td>
+                            <td>[[ (teamDataTwo?.pass_pct * 100).toFixed(0) + '%' || '' ]]</td>
+                            <td>[[ (teamDataThree?.pass_pct * 100).toFixed(0) + '%' || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Takeaways/GP</th>
+                            <td>[[ teamDataOne?.takeaways || '' ]]</td>
+                            <td>[[ teamDataTwo?.takeaways || '' ]]</td>
+                            <td>[[ teamDataThree?.takeaways || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <td>OZ Takeaways/GP</td>
+                            <td>[[ teamDataOne?.oz_takeaways || '' ]]</td>
+                            <td>[[ teamDataTwo?.oz_takeaways || '' ]]</td>
+                            <td>[[ teamDataThree?.oz_takeaways || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <td>NZ Takeaways/GP</td>
+                            <td>[[ teamDataOne?.nz_takeaways || '' ]]</td>
+                            <td>[[ teamDataTwo?.nz_takeaways || '' ]]</td>
+                            <td>[[ teamDataThree?.nz_takeaways || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <td>DZ Takeaways/GP</td>
+                            <td>[[ teamDataOne?.dz_takeaways || '' ]]</td>
+                            <td>[[ teamDataTwo?.dz_takeaways || '' ]]</td>
+                            <td>[[ teamDataThree?.dz_takeaways || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">LPRs/GP</th>
+                            <td>[[ teamDataOne?.lpr || '' ]]</td>
+                            <td>[[ teamDataTwo?.lpr || '' ]]</td>
+                            <td>[[ teamDataThree?.lpr || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <td>OZ LPRs/GP</td>
+                            <td>[[ teamDataOne?.oz_lpr || '' ]]</td>
+                            <td>[[ teamDataTwo?.oz_lpr || '' ]]</td>
+                            <td>[[ teamDataThree?.oz_lpr || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <td>NZ LPRs/GP</td>
+                            <td>[[ teamDataOne?.nz_lpr || '' ]]</td>
+                            <td>[[ teamDataTwo?.nz_lpr || '' ]]</td>
+                            <td>[[ teamDataThree?.nz_lpr || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <td>DZ LPRs/GP</td>
+                            <td>[[ teamDataOne?.dz_lpr || '' ]]</td>
+                            <td>[[ teamDataTwo?.dz_lpr || '' ]]</td>
+                            <td>[[ teamDataThree?.dz_lpr || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Dump In/Outs/GP</th>
+                            <td>[[ teamDataOne?.dumps || '' ]]</td>
+                            <td>[[ teamDataTwo?.dumps || '' ]]</td>
+                            <td>[[ teamDataThree?.dumps || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Carried Entries/GP</th>
+                            <td>[[ teamDataOne?.carried_entries || '' ]]</td>
+                            <td>[[ teamDataTwo?.carried_entries || '' ]]</td>
+                            <td>[[ teamDataThree?.carried_entries || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Dumped Entries/GP</th>
+                            <td>[[ teamDataOne?.dumped_entries || '' ]]</td>
+                            <td>[[ teamDataTwo?.dumped_entries || '' ]]</td>
+                            <td>[[ teamDataThree?.dumped_entries || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Played Entries/GP</th>
+                            <td>[[ teamDataOne?.played_entries || '' ]]</td>
+                            <td>[[ teamDataTwo?.played_entries || '' ]]</td>
+                            <td>[[ teamDataThree?.played_entries || '' ]]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Penalties/GP</th>
+                            <td>[[ teamDataOne?.penalties || '' ]]</td>
+                            <td>[[ teamDataTwo?.penalties || '' ]]</td>
+                            <td>[[ teamDataThree?.penalties || '' ]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col" id="graph-1">
+                <div class="mx-auto" style="height: 500px;">
+                <shotplot v-if="shotsOne.length > 0" :points="shotsOne" :title="'Shots For - Period 1'" :key="currTeamId"></shotplot>
+                </div>
+                <div class="mx-auto" style="height: 500px;">
+                <shotplot v-if="shotsThree.length > 0" :points="shotsThree" :title="'Shots For - Period 3'" :key="currTeamId"></shotplot>
+                </div>
+            </div>
+            <div class="col" id="graph-2">
+                <div class="mx-auto" style="height: 500px;">
+                <shotplot v-if="shotsTwo.length > 0" :points="shotsTwo" :title="'Shots For - Period 2'" :key="currTeamId"></shotplot>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-6 mb-0 text-body-secondary">This app was created by Zoe Jerome © 2025</p>
+            <a href="#" class="col-md-6 d-flex align-items-center justify-content-end mb-3 mb-md-0 me-md-auto">
+                <img src="{% static 'images/Calgary_Flames_logo.svg' %}" alt="Logo" class="bi me-2" width="32" height="32" aria-hidden="true">
+            </a>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/sit-app.js' %}"></script>
+</body>
+</html>
