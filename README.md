@@ -1,5 +1,5 @@
 # bdc-nwhl-stats-site
-A visualization for NWHL data provided by Big Data Cup 2021.
+A visualization for NWHL and Olympic data provided by Big Data Cup 2021.
 
 # Live Deployment
 You can visit a live version of this stats tool via heroku here - https://bdc-nwhl-stats-site-f1ebd92f2c7e.herokuapp.com/
