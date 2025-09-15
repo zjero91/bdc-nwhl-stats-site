@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NWHL Stats Site</title>
+    <title>Olympic Stats Site</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-        <img src="{% static 'images/NWHL_2015_logo.png' %}" alt="Logo" width="50px" height="30px" class="d-inline-block align-text-top" style="-webkit-filter: invert(1); filter: invert(1)">
+        <img src="{% static 'images/olympics.png' %}" alt="Logo" width="50px" height="30px" class="d-inline-block align-text-top">
         Team Situations Tool
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +34,10 @@
 
     <div id="stats-tool" class="container px-0 py-5" v-if="!loading">
         <div class="text-center">
-            <img @click="currTeamId=2" src="{% static 'images/beauts_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
-            <img @click="currTeamId=1" src="{% static 'images/pride_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
-            <img @click="currTeamId=4" src="{% static 'images/riveters_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
-            <img @click="currTeamId=6" src="{% static 'images/six_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
-            <img @click="currTeamId=3" src="{% static 'images/whale_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
-            <img @click="currTeamId=5" src="{% static 'images/whitecaps_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=1" src="{% static 'images/ca_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=2" src="{% static 'images/fin_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=3" src="{% static 'images/rus_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
+            <img @click="currTeamId=4" src="{% static 'images/usa_logo.png' %}" alt="Logo" height="50" class="px-3" role="button">
         </div>
 
         <hr>

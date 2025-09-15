@@ -4,7 +4,7 @@ import duckdb
 import os
 
 def load_raw_data():
-    data_file_name = "hackathon_nwhl.csv"
+    data_file_name = "olympic_womens_dataset.csv"
     data_file_path = os.path.join(settings.BASE_DIR, 'stats_app', 'data', data_file_name)
     raw_data = pd.read_csv(data_file_path)
     
@@ -12,6 +12,11 @@ def load_raw_data():
 
 def load_team_model_data():
     raw_data = RAW_DATA.copy()
+    
+    raw_data = raw_data[raw_data['Team'].str.contains('Olympic')].copy()
+    raw_data['Team'] = raw_data['Team'].str.replace('Olympic (Women) - ', '')
+    raw_data['Home Team'] = raw_data['Home Team'].str.replace('Olympic (Women) - ', '')
+    raw_data['Away Team'] = raw_data['Away Team'].str.replace('Olympic (Women) - ', '')
     
     team_model_data = duckdb.sql("""
         SELECT

@@ -117,8 +117,8 @@ const appInstance = () => {
                 plotDataOne: [],
                 plotDataTwo: [],
                 plotDataThree: [],
-                currTeamId: 1,
-                currTeamLogo: '/static/images/pride_logo.png',
+                currTeamId: 4,
+                currTeamLogo: '/static/images/usa_logo.png',
             }
         },
         mounted() {
@@ -239,17 +239,13 @@ const appInstance = () => {
             getTeamLogo() {
                 this.loading = true;
                 if (this.currTeamId == 1) {
-                    this.currTeamLogo = '/static/images/pride_logo.png';
+                    this.currTeamLogo = '/static/images/ca_logo.png';
                 } else if (this.currTeamId == 2) {
-                    this.currTeamLogo = '/static/images/beauts_logo.png';
+                    this.currTeamLogo = '/static/images/fin_logo.png';
                 } else if (this.currTeamId == 3) {
-                    this.currTeamLogo = '/static/images/whale_logo.png';
-                } else if (this.currTeamId == 4) {
-                    this.currTeamLogo = '/static/images/riveters_logo.png';
-                } else if (this.currTeamId == 5) {
-                    this.currTeamLogo = '/static/images/whitecaps_logo.png';
+                    this.currTeamLogo = '/static/images/rus_logo.png';
                 } else {
-                    this.currTeamLogo = '/static/images/six_logo.png';
+                    this.currTeamLogo = '/static/images/usa_logo.png';
                 }
                 this.loading = false;
             },
